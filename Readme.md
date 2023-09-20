@@ -45,29 +45,35 @@ This animation can help visualize this process better:
 *Source: https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks#layer*
 
 
+
+## Input Data
+
+The network is tested on the [Fashion MNIST dataset](https://github.com/zalandoresearch/fashion-mnist) which contains 10,000 single channel images each of dimensions 86x86 but we will only use 1000 of these at a time. The output layer consists of 10 nodes, where each node represents the likelihood of the input belonging to one of the 10 classes (T-shirt, dress, sneaker, boot, etc).
+
+
+
 ## CPU Implementation
-File: `src/layer/custom/cpu-new-forward.cc`
-Classification Accuracy: 0.886
 
+File: `src/layer/custom/cpu-new-forward.cc` <br>
+Classification Accuracy: 0.886 <br>
+- Direct translation of pseudocode in "What is the forward pass of a convolution layer?" Readme section
+  
 ## GPU Implementation (Basic)
-File: `src/layer/custom/gpu-new-forward-basic.cu`
 
-Tested on NVIDIA 1080ti GPU.
-
-Classification Accuracy: 0.886
-
-Runtime:
+File: `src/layer/custom/gpu-new-forward-basic.cu` <br>
+Classification Accuracy: 0.886 <br>
+Tested on NVIDIA 1080ti GPU <br>
+Runtime: <br>
 
 
 ## GPU Implementation (Optimized)
-File: `src/layer/custom/gpu-new-forward-optimized.cu`
 
-Tested on NVIDIA 1080ti GPU.
+File: `src/layer/custom/gpu-new-forward-basic.cu` <br>
+Classification Accuracy: 0.886 <br>
+Tested on NVIDIA 1080ti GPU <br>
+Runtime: <br>
 
-Classification Accuracy: 0.886
-
-Runtime:
-
+Optimizations: <br>
 * Shared Memory convolution
 * Weight matrix (kernel values) in constant memory
 * Tuning with restrict and loop unrolling (considered as one optimization only if you do both)
@@ -77,12 +83,6 @@ Runtime:
 
 
 Implementation uses tiling, shared memory, and constant memory. 
-
-
-
-## Input Data
-
-The network is tested on the [Fashion MNIST dataset](https://github.com/zalandoresearch/fashion-mnist) which contains 10,000 single channel images each of dimensions 86x86 but we will only use 1000 of these at a time. The output layer consists of 10 nodes, where each node represents the likelihood of the input belonging to one of the 10 classes (T-shirt, dress, sneaker, boot, etc).
 
 
 ## How to Compile
@@ -101,4 +101,4 @@ Use the `make run` command to test the program, which will run your program on a
 
 ## Credit
 
-This project is originally from UIUC ECE408 and builds off a number of open source projects including the Fashion MNIST dataset, mini-dnn-cpp, and the Eigen project.
+The project was completed from Feb 2023 - Mar 2023 while taking UCSD's Introduction to Parallel Computing course. This project is originally from UIUC ECE408 and builds off a number of open source projects including the Fashion MNIST dataset, mini-dnn-cpp, and the Eigen project.
