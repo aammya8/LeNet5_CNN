@@ -1,11 +1,11 @@
 
-# Programming Assignment 8: CNN Forward Layer GPU Implementation Optimization
+# Convolutional Neural Network Forward Layer GPU Implementation Optimization
 
 ## Objective
 
-This is the third part of a three part project implementing and optimizing the forward pass of a convolution layer using CUDA. Convolutional layers are the primary building blocks of convolutional neural networks (CNNs), which are used for tasks like image classification, object detection, natural language processing and recommendation systems. 
+This is a three part project implementing and optimizing the forward pass of a convolution layer using CUDA. Convolutional layers are the primary building blocks of convolutional neural networks (CNNs), which are used for tasks like image classification, object detection, natural language processing and recommendation systems. 
 
-You will be working with a modified version of the LeNet5 architecture shown below:
+The forward pass is implemented for a modified version of the LeNet5 architecture shown below:
 
 ![LenetImage](https://lh5.googleusercontent.com/84RlneM7JSDYDirUr_ceplL4G3-Peyq5dkLJTe2f-3Bj9KuWZjsH2A9Qq5PO5BRLrVfWGPnI3eQu8RkTPgyeUf9ZOWY9JbptVJy9LceAyHRn-O0kbzprx88yb82a5dnCR7EDP7n0)
 
