@@ -46,11 +46,11 @@ This animation can help visualize this process better:
 
 
 ## CPU Implementation
-File: `src/layer/custom/new-forward.cu`
+File: `src/layer/custom/cpu-new-forward.cc`
 Classification Accuracy: 0.886
 
 ## GPU Implementation (Basic)
-File: `src/layer/custom/new-forward.cu`
+File: `src/layer/custom/gpu-new-forward-basic.cu`
 
 Tested on NVIDIA 1080ti GPU.
 
@@ -60,7 +60,7 @@ Runtime:
 
 
 ## GPU Implementation (Optimized)
-File: `src/layer/custom/new-forward.cu`
+File: `src/layer/custom/gpu-new-forward-optimized.cu`
 
 Tested on NVIDIA 1080ti GPU.
 
