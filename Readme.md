@@ -3,7 +3,7 @@
 
 ## Objective
 
-This project is an implementation and optimization of the forward pass of a convolution layer using **CUDA**. Convolutional layers are the primary building blocks of convolutional neural networks (CNNs), which are used for tasks like image classification, object detection, natural language processing and recommendation systems. 
+This project is an implementation and optimization of the forward pass of a convolution layer using **CUDA**. Convolutional layers are the primary building blocks of convolutional neural networks (CNNs), which are used for tasks like image classification, object detection, natural language processing and recommendation systems. **This implementation achieves 0.886 (88.6%) classification accuracy.**
 
 The forward pass is implemented for a modified version of the LeNet5 architecture shown below:
 
@@ -13,20 +13,19 @@ The forward pass is implemented for a modified version of the LeNet5 architectur
 
 The CUDA implementation of the convolutional layer will be used to perform inference for layers C1 and C3 (shown in red) in the figure above. This leverages the [mini-dnn-cpp](https://github.com/iamhankai/mini-dnn-cpp) (Mini-DNN) framework for implementing the modified LeNet-5.
 
-**Readme Sections:**
-- An explanation of the forward pass of a convolution layer
+**Readme Contents:**
+- What is the forward pass of a convolution layer?
 - CPU Implementation 
 - GPU (Parallelized) Implementation
-- Optimized GPU (Parallelized) Implementation, along with explanation of optimizations
+- Optimized GPU (Parallelized) Implementation
 - Instructions on how to compile and test code
 
 
 ## What is the forward pass of a convolution layer?
 
-This assignment requires you to complete a GPU implementation of the convolutional layer. Performance of the GPU implementation is not important as this assignment is intended to build functionality before optimizing. The only file you need to update to implement the forward convolution is:
-`src/layer/custom/new-forward.cu`. To understand which functions within `new-forward.cu` are being called and when, it may be helpful ot refer to `src/layer/conv_cust.cc`.
+The forward pass of a convolutional layer in a convolutional neural network (CNN) involves applying convolutional filters (also known as kernels) to the input data to produce feature maps. Each filter in the convolutional layer learns to detect different features or patterns in the input data, such as edges, textures, or more complex features, depending on the depth of the layer and the number of filters used. The combination of multiple filters allows the network to learn hierarchical representations of the input data, making CNNs particularly effective for image and spatial data analysis.
 
-Again, you are performing the following operation:
+In summary, we perform the following operation:
 ```{.ruby}
 for b = 0 .. B                     // for each image in the batch 
     for m = 0 .. M                 // for each output feature maps
@@ -46,30 +45,39 @@ This animation can help visualize this process better:
 *Source: https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks#layer*
 
 
+## CPU Implementation
+File: `src/layer/custom/new-forward.cu`
+Classification Accuracy: 0.886
+
+## GPU Implementation (Basic)
+File: `src/layer/custom/new-forward.cu`
+
+Tested on NVIDIA 1080ti GPU.
+
+Classification Accuracy: 0.886
+
+Runtime:
 
 
-## Instructions
+## GPU Implementation (Optimized)
+File: `src/layer/custom/new-forward.cu`
 
-At this point you have already completed a GPU implementation of your convolutional layer. The goal of this assignment is to optimize that convolutional layer. You will be graded based on how well you optimize your code.
+Tested on NVIDIA 1080ti GPU.
 
-A list of possible optimizations include:
+Classification Accuracy: 0.886
+
+Runtime:
+
 * Shared Memory convolution
 * Weight matrix (kernel values) in constant memory
 * Tuning with restrict and loop unrolling (considered as one optimization only if you do both)
 * Sweeping various parameters to find best values (block sizes, amount of thread coarsening)
 * Exploiting parallelism in input images, input channels, and output channels.
 * Multiple kernel implementations for different layer sizes
-* Input channel reduction: tree
-* Input channel reduction: atomics
-* Half-precision floating point (FP16) arithmetic
-* Using Streams to overlap computation with data transfer
-* Kernel fusion for unrolling and matrix-multiplication
-* An advanced matrix multiplication algorithm (register-tiled, for example)
-* Using Tensor Cores to speed up matrix multiplication
-* ...
-If you wish to use an optimization not listed here, please consult a course instructor.
 
-To receive full credit, you are expected to create an implementation that uses tiling, shared memory, and constant memory. If implemented correctly, those optimizations will yield substantial speedups over the naive solution (e.g., from PA7). Additional optimization will allow you to receive extra credit. 
+
+Implementation uses tiling, shared memory, and constant memory. 
+
 
 
 ## Input Data
@@ -79,18 +87,16 @@ The network is tested on the [Fashion MNIST dataset](https://github.com/zalandor
 
 ## How to Compile
 
-The `src/layer/custom/new-forward.cu` file contains the code for the programming assignment. There is a Makefile included which compiles it and links it with the libgputk CUDA library automatically. It can be run by typing `make m2` from the PA8 folder. It generates a `m2` output executable.
+**CUDA File**
+- Included is a Makefile which compiles the file and links it with the libgputk CUDA library automatically. (NOTE: By default, the filepath in the Makefile is `src/layer/custom/new-forward.cu`. To run the above CUDA files, edit to the corresponding GPU implementation file path specified above.) The file can be run by typing `make m2` from the LeNet5_CNN folder (i.e., Repo folder). It generates a `m2` output executable.
+
+**C++ File**
+- The makefile can be found [here](https://github.com/KastnerRG/cse160-WI23/blob/main/PA6/Makefile). The file can be run by typing `make m1` from the LeNet5_CNN folder (i.e., Repo folder). It generates a `m1` output executable.
+
 
 ## How to test
 
-Use the `make run` command to test your program which will run your program on a batch size of 1000 images. This will automatically compile your source (equivalent to executing `make m2` and then running `./m2 1000`).
-
-## Test Output 
-
-You will need to checkout a GPU for this assignment, but please avoid editing while accessing a device. For timing consistency check out a 1080ti as in the following command. However, for testing you can use any device you please. 
-`launch.sh -g 1 -s -i ucsdets/nvcr-cuda:latest -v 1080ti`
-
-The accuracy of your implementation should meet the 0.886 that our implementation does.
+Use the `make run` command to test the program, which will run your program on a batch size of 1000 images. This will automatically compile your source (equivalent to executing `make m2` and then running `./m2 1000`, or executing `make m1` and then running `./m1 1000`).
 
 
 ## Credit
